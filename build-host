@@ -1,0 +1,58 @@
+#!/bin/sh
+
+source $EASTER_CONFIG_FILE
+
+if [ -z $MOAI_ROOT ]; then
+	echo "MOAI_ROOT is not set"
+	echo "Use 'easter config' to set it"
+	exit 1
+fi
+
+if [ ! -d $MOAI_ROOT ]; then
+	echo "MOAI_ROOT ($MOAI_ROOT) does not exists"
+	exit 1
+fi
+
+BUILD_DIR=build
+CMAKE_DIR=cmake
+PLUGIN_DIR=plugins
+
+source ./easter.config
+
+if [ ! -f "$BUILD_DIR/Makefile" ]; then
+	PROJECT_DIR=`pwd`
+	mkdir -p $BUILD_DIR
+	cd $BUILD_DIR
+	cmake \
+	-DBUILD_LINUX=TRUE \
+	-DSDL_HOST=TRUE \
+	-DMOAI_BOX2D=TRUE \
+	-DMOAI_CHIPMUNK=TRUE \
+	-DMOAI_CURL=TRUE \
+	-DMOAI_CRYPTO=TRUE \
+	-DMOAI_EXPAT=TRUE \
+	-DMOAI_FREETYPE=TRUE \
+	-DMOAI_JSON=TRUE \
+	-DMOAI_JPG=TRUE \
+	-DMOAI_MONGOOSE=TRUE \
+	-DMOAI_LUAEXT=TRUE \
+	-DMOAI_OGG=TRUE \
+	-DMOAI_OPENSSL=TRUE \
+	-DMOAI_SQLITE3=TRUE \
+	-DMOAI_TINYXML=TRUE \
+	-DMOAI_PNG=TRUE \
+	-DMOAI_SFMT=TRUE \
+	-DMOAI_VORBIS=TRUE \
+	-DMOAI_UNTZ=TRUE \
+	-DMOAI_LUAJIT=TRUE \
+	-DMOAI_HTTP_CLIENT=TRUE \
+	-DCMAKE_BUILD_TYPE=Release \
+	-DCUSTOM_HOST="$PROJECT_DIR/$CMAKE_DIR" \
+	-DPLUGIN_DIR="$PROJECT_DIR/$PLUGIN_DIR" \
+	$BUILD_FLAGS \
+	$MOAI_ROOT/cmake
+else
+	cd $BUILD_DIR
+fi
+
+make $*
