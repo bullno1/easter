@@ -1,15 +1,8 @@
 #!/bin/sh
 
-if [ ! -f ./easter.config ]; then
-	echo "Cannot find easter.config"
-	exit 1
-fi
+. "$EASTER_ROOT/utils.sh"
 
-source ./easter.config
-
-if [ -z $PROJECT_TYPE ]; then
-	echo "PROJECT_TYPE is not set"
-	exit 1
-fi
+read_project_config
+assert_var PROJECT_TYPE
 
 $EASTER build-$PROJECT_TYPE $*
