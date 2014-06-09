@@ -7,7 +7,7 @@ export PROJECT_ROOT=`pwd`
 
 if [ -z $1 ]; then
 	echo "Usage: easter [command]"
-	exit 0
+	exit 1
 fi
 
 COMMAND_SCRIPT="$EASTER_ROOT/$1"

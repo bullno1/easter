@@ -1,7 +1,3 @@
-read_easter_config () {
-	. $EASTER_CONFIG_FILE
-}
-
 assert_file () {
 	if [ ! $1 $2 ]; then
 		echo "Cannot find $2"
@@ -9,9 +5,17 @@ assert_file () {
 	fi
 }
 
+read_config () {
+	assert_file -f $1
+	. $1
+}
+
+read_easter_config () {
+	read_config $EASTER_CONFIG_FILE
+}
+
 read_project_config () {
-	assert_file -f "$PROJECT_ROOT/easter.config"
-	. "$PROJECT_ROOT/easter.config"
+	read_config "$PROJECT_ROOT/easter.config"
 }
 
 assert_var () {
