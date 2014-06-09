@@ -23,7 +23,7 @@ export HOST_DIR="$PROJECT_ROOT/hosts/$HOST_NAME"
 case $HOST_TYPE in
 	simulator)
 		export HOST_TARGET="$COMMON_BUILD_DIR/bin/$HOST_NAME"
-		make all -f "$EASTER_ROOT/simulator.make" &&
+		make all -f "$EASTER_ROOT/simulator.mk" &&
 		$HOST_TARGET $*
 		;;
 	*)

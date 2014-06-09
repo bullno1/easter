@@ -5,7 +5,7 @@ $(if $(OS_FLAGS),,$(error Unsupported platform: $(OS)))
 
 .PHONY: all
 
-include $(EASTER_ROOT)/common.make
+include $(EASTER_ROOT)/common.mk
 
 all: check-plugins $(HOST_TARGET)
 
