@@ -1,7 +1,6 @@
 build_host () {
 	. "$EASTER_ROOT/utils.sh"
-	read_easter_config
-	assert_var MOAI_ROOT
+	ensure_local_sdk
 
 	mkdir -p $1
 	local BUILD_DIR=`readlink -f $1`
@@ -48,7 +47,7 @@ build_host () {
 	-DCUSTOM_HOST="$HOST_DIR/cmake" \
 	-DPLUGIN_DIR="$PLUGIN_DIR" \
 	${PLUGIN_FLAGS[@]} \
-	$MOAI_ROOT/cmake
+	$LOCAL_SDK_PATH/cmake
 
 	make -j$NUM_CORES
 }

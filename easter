@@ -3,6 +3,7 @@
 export EASTER=$(readlink -f $0)
 export EASTER_ROOT=$(dirname $EASTER)
 export EASTER_CONFIG_FILE=~/.easter
+export PROJECT_ROOT=`pwd`
 
 if [ -z $1 ]; then
 	echo "Usage: easter [command]"
