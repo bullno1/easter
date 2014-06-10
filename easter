@@ -4,13 +4,14 @@ export EASTER=$(readlink -f $0)
 export EASTER_ROOT=$(dirname $EASTER)
 export EASTER_CONFIG_FILE=~/.easter
 export PROJECT_ROOT=`pwd`
+export COMMON_BUILD_DIR="$PROJECT_ROOT/.build"
 
 if [ -z $1 ]; then
 	echo "Usage: easter [command]"
 	exit 1
 fi
 
-COMMAND_SCRIPT="$EASTER_ROOT/$1"
+COMMAND_SCRIPT="$EASTER_ROOT/commands/$1"
 
 if [ ! -x $COMMAND_SCRIPT ] || [ ! -f $COMMAND_SCRIPT ]; then
 	echo "Unknown command $1"

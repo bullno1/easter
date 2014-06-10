@@ -3,14 +3,14 @@ LINUX_FLAGS=-DBUILD_LINUX=TRUE
 OS_FLAGS=$($(OS)_FLAGS)
 $(if $(OS_FLAGS),,$(error Unsupported platform: $(OS)))
 
+MAKEFILE=$(HOST_BUILD_DIR)/Makefile
+
+include $(EASTER_ROOT)/make/common.mk
+
 .PHONY: all
 
-include $(EASTER_ROOT)/common.mk
-
-all: check-plugins $(HOST_TARGET)
-
-$(HOST_TARGET): $(MAKEFILE)
-	$(MAKE) -C $(dir $(MAKEFILE)) -j$(NUM_CORES)
+all: check-plugins check-moai-version $(MAKEFILE)
+	$(MAKE) -C $(dir $(MAKEFILE))
 
 $(MAKEFILE): $(MOAI_SDK) $(PLUGIN_MANIFEST) | $(HOST_BUILD_DIR)/
 	@echo "Generating Makefile"
@@ -44,4 +44,4 @@ $(MAKEFILE): $(MOAI_SDK) $(PLUGIN_MANIFEST) | $(HOST_BUILD_DIR)/
 	-DCUSTOM_HOST=$(HOST_DIR)/cmake \
 	-DPLUGIN_DIR=$(PLUGIN_DIR) \
 	$(PLUGIN_FLAGS) \
-	$(SDK_CMAKE_DIR)
+	$(MOAI_CMAKE_DIR)

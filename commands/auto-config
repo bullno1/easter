@@ -1,0 +1,28 @@
+#!/bin/sh
+
+ANDROID_PATH=$(command -v android)
+
+if [ -n "$ANDROID_PATH" ]; then
+	ANDROID_SDK_ROOT=$(dirname $(dirname $ANDROID_PATH))
+	echo "Found Android SDK at: $ANDROID_SDK_ROOT"
+	$EASTER config android_sdk_root $ANDROID_SDK_ROOT
+else
+	echo "Could not find Android SDK"
+fi
+
+NDK_BUILD_PATH=$(command -v ndk-build)
+
+if [ -n "$NDK_BUILD_PATH" ]; then
+	ANDROID_NDK_ROOT=$(dirname $NDK_BUILD_PATH)
+	echo "Found Android NDK at: $ANDROID_NDK_ROOT"
+	$EASTER config android_ndk_root $ANDROID_NDK_ROOT
+else
+	echo "Could not find Android NDK"
+fi
+
+if [ -d .git ] && [ -d cmake ] && [ -d ant ] && [ -d 3rdparty ] && [ -d release ]; then
+	echo "Found Moai SDK at: `pwd`"
+	$EASTER config moai_root `pwd`
+else
+	echo "Could not find Moai SDK"
+fi

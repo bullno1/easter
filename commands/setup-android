@@ -1,0 +1,43 @@
+#!/bin/sh
+
+if [ $# -ne 1 ]; then
+	echo "Usage: easter setup-android <path>"
+	exit 1
+fi
+
+HOST_PATH=`readlink -f $1`
+
+if [ -e $HOST_PATH ]; then
+	echo "$HOST_PATH already exists"
+	exit 1
+fi
+
+. "$EASTER_ROOT/scripts/utils.sh"
+read_easter_config
+read_project_config
+ensure_local_sdk
+
+read_platform_config "android"
+assert_var project_name
+assert_var package
+assert_var platform
+
+ensure_local_sdk
+rm -rf "$MOAI_SDK/ant/untitled-host"
+
+$MOAI_SDK/ant/make-host.sh \
+	-p $package \
+	-s \
+	-l $platform \
+	-a all \
+	--use-untz true \
+	--use-luajit true > /dev/null
+
+TEMPLATE_DIR="$MOAI_SDK/ant/untitled-host"
+
+mkdir -p $HOST_PATH
+mv "$TEMPLATE_DIR/host-source/project" "$HOST_PATH/project"
+mv "$TEMPLATE_DIR/host-source/init.lua" "$HOST_PATH/init.lua"
+echo "host_type=android" > "$HOST_PATH/easter.config"
+rm -rf "$HOST_PATH/src/libs"
+rm -rf $TEMPLATE_DIR

@@ -1,8 +1,0 @@
-#!/bin/sh
-
-. "$EASTER_ROOT/utils.sh"
-
-read_project_config
-assert_var PROJECT_TYPE
-
-$EASTER build-$PROJECT_TYPE $*

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+export HOST_TARGET="$COMMON_BUILD_DIR/bin/$HOST_NAME"
+make all -f "$EASTER_ROOT/make/simulator.mk"
