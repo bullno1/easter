@@ -15,7 +15,6 @@ fi
 . "$EASTER_ROOT/scripts/utils.sh"
 read_easter_config
 read_project_config
-ensure_local_sdk
 
 read_platform_config "android"
 assert_var project_name
@@ -41,3 +40,4 @@ mv "$TEMPLATE_DIR/host-source/init.lua" "$HOST_PATH/init.lua"
 echo "host_type=android" > "$HOST_PATH/easter.config"
 rm -rf "$HOST_PATH/src/libs"
 rm -rf $TEMPLATE_DIR
+find $HOST_PATH -type f -exec dos2unix {} \;
