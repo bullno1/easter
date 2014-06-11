@@ -1,0 +1,6 @@
+#!/bin/sh
+
+cp -r $EASTER_ROOT/templates/project-template/* $PROJECT_ROOT
+mkdir -p $PROJECT_ROOT/assets
+mkdir -p $PROJECT_ROOT/hosts
+mkdir -p $PROJECT_ROOT/plugins
