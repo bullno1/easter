@@ -4,7 +4,7 @@ include $(PROJECT_ROOT)/easter.android.config
 
 $(call assert_var architectures)
 LIBMOAI_BUILD_DIR=$(COMMON_BUILD_DIR)/libmoai-android
-LIBMOAI_MAKEFILES=$(LIBMOAI_BUILD_DIR)/$(architectures:%=$(LIBMOAI_BUILD_DIR)/%/Makefile)
+LIBMOAI_MAKEFILES=$(architectures:%=$(LIBMOAI_BUILD_DIR)/%/Makefile)
 
 APK_BUILD_DIR=$(HOST_BUILD_DIR)/apk
 TEMPLATE_DIR=$(HOST_BUILD_DIR)/template
