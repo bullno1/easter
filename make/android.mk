@@ -26,6 +26,7 @@ $(APK_BUILD_DIR): $(MOAI_SDK) $(HOST_FILES) $(PROJECT_ROOT)/easter.android.confi
 	 export HOST_DIR=$(HOST_DIR) && \
 	 export TEMPLATE_DIR=$(TEMPLATE_DIR) && \
 	 export PROJECT_ROOT=$(PROJECT_ROOT) && \
+	 export PLUGIN_DIR=$(PLUGIN_DIR) && \
 	 $(EASTER_ROOT)/scripts/create-android-project.sh
 
 $(LIBMOAI_BUILD_DIR)/%/Makefile: ANDROID_ABI=$(shell basename $(dir $@))

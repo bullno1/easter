@@ -89,46 +89,56 @@ cp -f $TEMPLATE_DIR/host-source/project/ant.properties $APK_BUILD_DIR/project/an
 
 cp -f $TEMPLATE_DIR/host-source/project/project.properties $APK_BUILD_DIR/project/project.properties
 
+
+install_addon () {
+	local lib_name=$1
+	local lib_dir=$2
+	if [ -f $lib_dir/manifest_declarations.xml ]; then
+		awk 'FNR==NR{ _[++d]=$0; next } /EXTERNAL DECLARATIONS:/ { print; print ""; for ( i=1; i<=d; i++ ) { print _[i] } next } 1' $lib_dir/manifest_declarations.xml $APK_BUILD_DIR/project/AndroidManifest.xml > /tmp/AndroidManifest.tmp && mv -f /tmp/AndroidManifest.tmp $APK_BUILD_DIR/project/AndroidManifest.xml
+	fi
+	if [ -f $lib_dir/manifest_permissions.xml ]; then
+		awk 'FNR==NR{ _[++d]=$0; next } /EXTERNAL PERMISSIONS:/ { print; print ""; for ( i=1; i<=d; i++ ) { print _[i] } next } 1' $lib_dir/manifest_permissions.xml $APK_BUILD_DIR/project/AndroidManifest.xml > /tmp/AndroidManifest.tmp && mv -f /tmp/AndroidManifest.tmp $APK_BUILD_DIR/project/AndroidManifest.xml
+	fi
+	if [ -f $lib_dir/classpath.xml ]; then
+		awk 'FNR==NR{ _[++d]=$0; next } /EXTERNAL ENTRIES:/ { print; print ""; for ( i=1; i<=d; i++ ) { print _[i] } next } 1' $lib_dir/classpath.xml $APK_BUILD_DIR/project/.classpath > /tmp/.classpath.tmp && mv -f /tmp/.classpath.tmp $APK_BUILD_DIR/project/.classpath
+	fi
+	if [ -d $TEMPLATE_DIR/host-source/moai/$lib_name ]; then
+		pushd $TEMPLATE_DIR/host-source/moai/$lib_name > /dev/null
+			find . -name ".?*" -type d -prune -o -type f -print0 | cpio -pmd0 --quiet $APK_BUILD_DIR/project/src/com/ziplinegames/moai
+		popd > /dev/null
+	fi
+	if [ -d $lib_dir/project ]; then
+		pushd $lib_dir/project > /dev/null
+			find . -name ".?*" -type d -prune -o -type f -print0 | cpio -pmd0 --quiet $APK_BUILD_DIR/$lib_name
+		popd > /dev/null
+		echo "android.library.reference.${dependency_index}=../$lib_name/" >> $APK_BUILD_DIR/project/project.properties
+		dependency_index=$(($dependency_index+1))
+	fi
+	if [ -d $lib_dir/lib ]; then
+		pushd $lib_dir/lib > /dev/null
+			find . -name ".?*" -type d -prune -o -type f -print0 | cpio -pmd0 --quiet $APK_BUILD_DIR/project/libs
+		popd > /dev/null
+	fi
+	if [ -d $lib_dir/src ]; then
+		pushd $lib_dir/src > /dev/null
+			find . -name ".?*" -type d -prune -o -type f -print0 | cpio -pmd0 --quiet $APK_BUILD_DIR/project/src
+		popd > /dev/null
+	fi
+}
+
 dependency_index=1
 requires=(${requires// / })
 for (( i=0; i<${#requires[@]}; i++ )); do
 	library=${requires[$i]}
-	if ! [[ $library =~ ^[a-zA-Z0-9_\-]+$ ]]; then
-		echo -e "*** Illegal optional component specified: $library, skipping..."
-		echo -e "    > Optional component references may only contain letters, numbers, dashes and underscores"
-		echo
-		continue
-	fi
-	if [ -f $TEMPLATE_DIR/host-source/external/$library/manifest_declarations.xml ]; then
-		awk 'FNR==NR{ _[++d]=$0; next } /EXTERNAL DECLARATIONS:/ { print; print ""; for ( i=1; i<=d; i++ ) { print _[i] } next } 1' $TEMPLATE_DIR/host-source/external/$library/manifest_declarations.xml $APK_BUILD_DIR/project/AndroidManifest.xml > /tmp/AndroidManifest.tmp && mv -f /tmp/AndroidManifest.tmp $APK_BUILD_DIR/project/AndroidManifest.xml
-	fi
-	if [ -f $TEMPLATE_DIR/host-source/external/$library/manifest_permissions.xml ]; then
-		awk 'FNR==NR{ _[++d]=$0; next } /EXTERNAL PERMISSIONS:/ { print; print ""; for ( i=1; i<=d; i++ ) { print _[i] } next } 1' $TEMPLATE_DIR/host-source/external/$library/manifest_permissions.xml $APK_BUILD_DIR/project/AndroidManifest.xml > /tmp/AndroidManifest.tmp && mv -f /tmp/AndroidManifest.tmp $APK_BUILD_DIR/project/AndroidManifest.xml
-	fi
-	if [ -f $TEMPLATE_DIR/host-source/external/$library/classpath.xml ]; then
-		awk 'FNR==NR{ _[++d]=$0; next } /EXTERNAL ENTRIES:/ { print; print ""; for ( i=1; i<=d; i++ ) { print _[i] } next } 1' $TEMPLATE_DIR/host-source/external/$library/classpath.xml $APK_BUILD_DIR/project/.classpath > /tmp/.classpath.tmp && mv -f /tmp/.classpath.tmp $APK_BUILD_DIR/project/.classpath
-	fi
-	if [ -d $TEMPLATE_DIR/host-source/moai/$library ]; then
-		pushd $TEMPLATE_DIR/host-source/moai/$library > /dev/null
-			find . -name ".?*" -type d -prune -o -type f -print0 | cpio -pmd0 --quiet $APK_BUILD_DIR/project/src/com/ziplinegames/moai
-		popd > /dev/null
-	fi
-	if [ -d $TEMPLATE_DIR/host-source/external/$library/project ]; then
-		pushd $TEMPLATE_DIR/host-source/external/$library/project > /dev/null
-			find . -name ".?*" -type d -prune -o -type f -print0 | cpio -pmd0 --quiet $APK_BUILD_DIR/$library
-		popd > /dev/null
-		echo "android.library.reference.${dependency_index}=../$library/" >> $APK_BUILD_DIR/project/project.properties
-		dependency_index=$(($dependency_index+1))
-	fi
-	if [ -d $TEMPLATE_DIR/host-source/external/$library/lib ]; then
-		pushd $TEMPLATE_DIR/host-source/external/$library/lib > /dev/null
-			find . -name ".?*" -type d -prune -o -type f -print0 | cpio -pmd0 --quiet $APK_BUILD_DIR/project/libs
-		popd > /dev/null
-	fi
-	if [ -d $TEMPLATE_DIR/host-source/external/$library/src ]; then
-		pushd $TEMPLATE_DIR/host-source/external/$library/src > /dev/null
-			find . -name ".?*" -type d -prune -o -type f -print0 | cpio -pmd0 --quiet $APK_BUILD_DIR/project/src
-		popd > /dev/null
+	install_addon $library "$TEMPLATE_DIR/host-source/external/$library"
+done
+
+plugin_dirs=$PLUGIN_DIR/*
+for plugin_dir in $plugin_dirs
+do
+	echo "Plugin $plugin_dir"
+	if [ -d $plugin_dir/android ]; then
+		install_addon `basename $plugin_dir` "$plugin_dir/android"
 	fi
 done
 
