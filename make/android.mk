@@ -57,6 +57,7 @@ $(LIBMOAI_BUILD_DIR)/%/Makefile: $(MOAI_SDK) $(PLUGIN_MANIFEST) $(PROJECT_ROOT)/
 		-DMOAI_UNTZ=1 \
 		-DMOAI_LUAJIT=1 \
 		-DBUILD_ANDROID=true \
+		-DANDROID_FORCE_ARM_BUILD=ON \
 		-DCMAKE_TOOLCHAIN_FILE="$(MOAI_SDK)/cmake/host-android/android.toolchain.cmake" \
 		-DANDROID_ABI=$(ANDROID_ABI) \
 		-DANDROID_NDK=$(android_ndk_root)  \
