@@ -7,7 +7,7 @@ MAKE=make -j$(NUM_CORES)
 
 # Common functions
 
-str_equal=$(and $(findstring $(1),$(2)),$(findstring $(2),$(1)))
+str_equal=$(and $(findstring x$(1),x$(2)),$(findstring x$(2),x$(1)))
 assert_var=$(if $($(1)),,$(error "$(1) is not set"))
 
 ## Moai SDK targets
