@@ -5,5 +5,5 @@
 read_project_config
 assert_var project_name
 
-export HOST_TARGET="$COMMON_BUILD_DIR/bin/$project_name-$HOST_NAME-debug.apk"
+export HOST_TARGET="$OUT_DIR/$project_name-$HOST_NAME.apk"
 make all -f "$EASTER_ROOT/make/android.mk"

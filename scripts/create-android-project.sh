@@ -27,8 +27,8 @@ mkdir -p $TEMPLATE_DIR
 cp -rf $MOAI_SDK/ant/untitled-host/* $TEMPLATE_DIR
 rm -rf $TEMPLATE_DIR/host-source/project
 rm -rf $TEMPLATE_DIR/host-source/init.lua
-ln -s $HOST_DIR/project $TEMPLATE_DIR/host-source/project
-ln -s $HOST_DIR/init.lua $TEMPLATE_DIR/host-source/init.lua
+ln -s $HOST_SRC_DIR/project $TEMPLATE_DIR/host-source/project
+ln -s $HOST_SRC_DIR/init.lua $TEMPLATE_DIR/host-source/init.lua
 
 package_path=src/${package//\./\/}
 

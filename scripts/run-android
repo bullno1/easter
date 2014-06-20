@@ -7,8 +7,7 @@ read_platform_config "android"
 assert_var project_name
 assert_var package
 
-HOST_TARGET="$COMMON_BUILD_DIR/bin/$project_name-$HOST_NAME-debug.apk"
+HOST_TARGET="$OUT_DIR/$project_name-$HOST_NAME.apk"
 adb install -r $HOST_TARGET
 adb shell am start -a android.intent.action.MAIN -n $package/$package.MoaiActivity
-adb logcat -c
-adb logcat MoaiLog:V AndroidRuntime:E *:S
+$EASTER logcat
