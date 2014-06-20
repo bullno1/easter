@@ -1,0 +1,28 @@
+#!/bin/sh
+
+BUILD_TYPE=$1
+HOST_NAME=$2
+
+$EASTER build $BUILD_TYPE $HOST_NAME
+
+if [ $? -ne 0 ]; then
+	echo "Failed to build host '$HOST_NAME'"
+	exit 1
+fi
+
+. "$EASTER_ROOT/scripts/build.sh"
+export_build_vars $HOST_NAME $BUILD_TYPE
+
+. "$EASTER_ROOT/scripts/utils.sh"
+read_config "hosts/$HOST_NAME/easter.config"
+assert_var host_type
+
+RUN_SCRIPT=$EASTER_ROOT/scripts/run-$host_type
+
+if [ ! -f $RUN_SCRIPT ]; then
+	echo "Unsupported host type '$host_type'"
+	exit 1
+fi
+
+shift 2
+$RUN_SCRIPT $*

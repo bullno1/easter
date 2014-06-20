@@ -1,0 +1,8 @@
+#!/bin/sh
+
+if [ $# -lt 1 ]; then
+	echo "Usage: easter debug <host-name> [extra args]"
+	exit 1
+fi
+
+$EASTER_ROOT/scripts/build-and-run debug $*
