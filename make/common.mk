@@ -40,7 +40,7 @@ check-moai-version:
 
 ## Plugin targets
 PLUGIN_DIR=$(PROJECT_ROOT)/plugins
-PLUGINS=$(sort $(shell find $(PLUGIN_DIR) -maxdepth 1 -mindepth 1 -type d -exec basename {} \;))
+PLUGINS=$(sort $(shell find -L $(PLUGIN_DIR) -maxdepth 1 -mindepth 1 -type d -exec basename {} \;))
 PLUGIN_MANIFEST=$(COMMON_BUILD_DIR)/.plugins
 PLUGINS_UPPERCASE=$(shell echo $(PLUGINS) | tr a-z A-Z)
 PLUGIN_FLAGS=$(PLUGINS_UPPERCASE:%=-DPLUGIN_%=1)
