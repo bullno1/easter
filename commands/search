@@ -1,0 +1,9 @@
+#!/bin/sh
+
+. "$EASTER_ROOT/scripts/utils.sh"
+read_easter_config
+read_project_config
+assert_var luajit
+assert_file -x $luajit
+
+$luajit "$EASTER_ROOT/scripts/search.lua" $package

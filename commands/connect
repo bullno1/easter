@@ -1,0 +1,8 @@
+#!/bin/sh
+
+if [ $# -ne 2 ]; then
+	echo "Usage: easter connect <address> <port>"
+	exit 1
+fi
+
+rlwrap nc -u $1 $2

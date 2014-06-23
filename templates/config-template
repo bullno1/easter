@@ -1,3 +1,4 @@
 moai_root=$moai_root
 android_sdk_root=$android_sdk_root
 android_ndk_root=$android_ndk_root
+luajit=$luajit

@@ -16,6 +16,7 @@ case $# in
 		export moai_root
 		export android_sdk_root
 		export android_ndk_root
+		export luajit
 		envsubst < "$EASTER_ROOT/templates/config-template" > $EASTER_CONFIG_FILE
 		;;
 esac

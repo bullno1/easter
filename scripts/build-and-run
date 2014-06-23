@@ -24,5 +24,8 @@ if [ ! -f $RUN_SCRIPT ]; then
 	exit 1
 fi
 
+read_project_config
+assert_var package
+export APP_ID=$package
 shift 2
 $RUN_SCRIPT $*
