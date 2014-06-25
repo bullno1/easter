@@ -1,4 +1,4 @@
 #!/bin/sh
 
 adb logcat -c
-adb logcat MoaiLog:V AndroidRuntime:E *:W
+adb logcat MoaiLog:V AndroidRuntime:E *:S
