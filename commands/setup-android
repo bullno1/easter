@@ -40,4 +40,4 @@ mv "$TEMPLATE_DIR/host-source/init.lua" "$HOST_PATH/init.lua"
 echo "host_type=android" > "$HOST_PATH/easter.config"
 rm -rf "$HOST_PATH/src/libs"
 rm -rf $TEMPLATE_DIR
-find $HOST_PATH -type f -exec dos2unix {} \;
+find $HOST_PATH -type f -exec $EASTER_ROOT/scripts/normalize-text {} \;
