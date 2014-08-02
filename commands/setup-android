@@ -5,7 +5,7 @@ if [ $# -ne 1 ]; then
 	exit 1
 fi
 
-HOST_PATH=`readlink -f $1`
+HOST_PATH=`readlink -f hosts/$1`
 
 if [ -e $HOST_PATH ]; then
 	echo "$HOST_PATH already exists"
