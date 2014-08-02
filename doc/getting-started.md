@@ -15,7 +15,7 @@ First, clone easter:
 
 	git clone git://github.com/bullno1/easter.git
 
-The `easter` needs to be put in a folder mentiond in the PATH environment variable.
+`easter` needs to be put in a folder mentiond in the PATH environment variable.
 Symlink can be used to make updating `easter` easier.
 One possible way to install easter is to do:
 
@@ -43,7 +43,7 @@ To create a project, use the [new-project](new-project.md) command.
 
 	mkdir hello-easter
 	cd hello-easter
-	easter new-project hello-easter
+	easter new-project
 
 Now let's add a host to this project:
 
