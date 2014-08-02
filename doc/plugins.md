@@ -15,4 +15,4 @@ Plugin projects must follow Moai's plugin layout:
 	|   `-- host.h         # plugin interface declaration
 	`-- plugin.CMake       # plugin declaration
 
-For an example, checkout [moai-enet](https://github.com/bullno1/moai-enet)
+For an example, checkout [moai-enet](https://github.com/bullno1/moai-enet).

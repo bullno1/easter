@@ -13,7 +13,7 @@ For [simulator hosts](hosts.md#simulator), it will be executed with the project'
 Core dump will be enabled and debuggers such as gdb or nemiver can be used to analyze the dump if the host crashes.
 Where the crash dump is located or how it is named varies from one distro to another.
 
-For [android hosts](hosts.md#android), it will install the apk on the attached device, launch it and show the program's output in the console.
+For [android hosts](hosts.md#android), it will install the apk on the attached device, unlock the screen, launch it and show the program's output in the console.
 
 ## Examples
 
