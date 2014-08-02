@@ -4,14 +4,18 @@
 
 case $# in
 	0)
+		assert_file -f $EASTER_CONFIG_FILE
 		cat $EASTER_CONFIG_FILE
 		;;
 	1)
+		assert_file -f $EASTER_CONFIG_FILE
 		read_config $EASTER_CONFIG_FILE
 		echo "${!1}"
 		;;
 	2)
-		. $EASTER_CONFIG_FILE
+		if [ -f $EASTER_CONFIG_FILE ]; then
+			. $EASTER_CONFIG_FILE
+		fi
 		export $1=$2
 		export moai_root
 		export android_sdk_root
