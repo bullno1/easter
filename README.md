@@ -13,4 +13,4 @@ For a quick start guide, checkout [doc/getting-started.md](doc/getting-started.m
 
 For more detailed documentation, checkout [doc/index.md](doc/index.md#general-usage)
 
-To build documentations for offline reading, run `make`.
+To build documentations for offline reading, run `make`. [pandoc](http://johnmacfarlane.net/pandoc/) is required.
