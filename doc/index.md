@@ -4,6 +4,7 @@ easter is a build tool for [Moai game engine](http://github.com/moai/moai-dev). 
 
 easter was built with very specific requirements in mind:
 
+* Fast incremental build
 * Support repeatable build across machines
 * Support development of native plugins concurrently with game project
 * No external dependencies except common Unix tools and what Moai itself requires (e.g: cmake, android-sdk, android-ndk...)
@@ -29,4 +30,21 @@ The fastest way is to use the `auto-config` command inside Moai's git folder:
 	Found LuaJIT at: /usr/bin/luajit
 	Found Moai SDK at: /home/bullno1/Libraries/moai-dev
 
-For more information on configuration, see [Config](config.md)
+For more information on configuration, see [config](config.md)
+
+# General usage
+
+	easter <command> [parameters]
+
+Available commands:
+
+| Command                          | Description                               |
+|----------------------------------|-------------------------------------------|
+|[config](config.md)               | change/retrieve configuration variables   |
+|[auto-config](auto-config.md)     | automatically set configuration variables |
+|[new-project](new-project.md)     | setup a new project                       |
+|[logcat](logcat.md)               | view your program's output through adb    |
+|[build](build.md)                 | build your project                        |
+|[run](run.md)                     | build and run your project                |
+|[setup-android](setup-android.md) | setup a default Android host              |
+|[debug](debug.md)                 | build and run your project in debug mode  |
