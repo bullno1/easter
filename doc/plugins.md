@@ -1,6 +1,7 @@
 # Plugins
 
 All plugins must be placed inside the `plugins` folder.
+
 `easter` automatically builds all plugins for all hosts.
 It also detects addition, removal and modifications of plugins and does incremetal rebuild accordingly.
 
