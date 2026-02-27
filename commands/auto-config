@@ -29,7 +29,7 @@ else
 	echo "Could not find LuaJIT"
 fi
 
-if [ -d .git ] && [ -d cmake ] && [ -d ant ] && [ -d 3rdparty ] && [ -d release ]; then
+if [ -d .git ] && [ -d cmake ] && [ -d ant ] && [ -d 3rdparty ]; then
 	echo "Found Moai SDK at: `pwd`"
 	$EASTER config moai_root `pwd`
 else

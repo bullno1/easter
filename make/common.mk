@@ -27,7 +27,7 @@ $(MOAI_SDK): $(MOAI_VERSION_MANIFEST)
 	@rm -rf $(MOAI_SDK)
 	@mkdir -p $(MOAI_SDK)
 	@echo "Installing Moai SDK version $(moai_version)"
-	@git --git-dir=$(moai_root)/.git read-tree Version-$(moai_version)
+	@git --git-dir=$(moai_root)/.git read-tree $(moai_version)
 	@git --git-dir=$(moai_root)/.git checkout-index -a --prefix=$(MOAI_SDK)/
 	@git --git-dir=$(moai_root)/.git read-tree HEAD
 
