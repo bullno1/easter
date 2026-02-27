@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -x
 
 case $# in
 	1)
@@ -27,7 +27,7 @@ assert_var host_type
 
 BUILD_SCRIPT=$EASTER_ROOT/scripts/build-$host_type
 
-if [ ! -f $BUILD_SCRIPT ]; then
+if [ ! -f "$BUILD_SCRIPT" ]; then
 	echo "Unsupported host type '$host_type'"
 	exit 1
 fi
